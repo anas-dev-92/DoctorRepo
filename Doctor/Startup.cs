@@ -14,6 +14,9 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;  
 using Microsoft.Extensions.DependencyInjection;
+using Doctor.Services.Admin;
+using Doctor.Services.User;
+using Swashbuckle.AspNetCore.Swagger;
 
 namespace Doctor
 {
@@ -30,6 +33,22 @@ namespace Doctor
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().AddMvcOptions(o => o.OutputFormatters.Add(new XmlDataContractSerializerOutputFormatter()));
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Swashbuckle.AspNetCore.Swagger.Info
+                {
+                    Version = "v1",
+                    Title = "Checkout Ad Api Documentation",
+                    Description = "this document provide the Ad",
+                    TermsOfService = "None",
+                    Contact = new Swashbuckle.AspNetCore.Swagger.Contact()
+                    {
+                        Name = "Anas Ameen",
+                        Email = "Anas_mohammed92@outlook.com",
+                        Url = ""
+                    }
+                });
+            });
             var connectionString = _configuration["ConnectionStrings:DefaultConnection"];
             services.AddDbContext<DoctorsDbContext>(o =>
             {
@@ -49,6 +68,8 @@ namespace Doctor
                 };
             });
             services.AddScoped<IDoctorRepository, DoctorRepository>();
+            services.AddScoped<IAdminRepository, AdminRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddRouting();
         }
@@ -60,7 +81,18 @@ namespace Doctor
             {
                 app.UseDeveloperExceptionPage();
             }
+            else
+            {
+                app.UseHsts();
+            }
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Checkout Ad Api");
+            });
             app.UseStatusCodePages();
+            app.UseHttpsRedirection();
+            app.UseStaticFiles();
             app.UseCors(x => x
                 .AllowAnyOrigin()
                 .AllowAnyMethod()

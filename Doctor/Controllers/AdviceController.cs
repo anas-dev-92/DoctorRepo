@@ -22,7 +22,7 @@ namespace Doctor.Controllers
             _doctorRepo = doctorRepository ?? throw new ArgumentNullException(nameof(doctorRepository));
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
-        [HttpGet]
+        [HttpGet("{idGet}")]
         public IActionResult GetAdvice(int doctorId)
         {
             if (!_doctorRepo.DoctorExists(doctorId))
@@ -130,7 +130,7 @@ namespace Doctor.Controllers
             _doctorRepo.Savechnge();
             return NoContent();
         }
-        [HttpDelete("{id}")]
+        [HttpDelete("{idDelete}")]
         public IActionResult DeleteAdvice(int doctorId, int id)
         {
             if (!_doctorRepo.DoctorExists(doctorId))
