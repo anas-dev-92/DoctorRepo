@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Doctor.Entities
 {
-    public class Admin
+    public class Admins
     {
         public int AdminId { get; set; }
         public string Email { get; set; }

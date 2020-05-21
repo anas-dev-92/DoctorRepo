@@ -119,7 +119,7 @@ namespace Doctor.Controllers
             return NoContent();
         }
         [HttpDelete]
-        public IActionResult DeleteAdvice(int userId)
+        public IActionResult DeleteUser(int userId)
         {
             if (!_userRepository.UserExists(userId))
             {
