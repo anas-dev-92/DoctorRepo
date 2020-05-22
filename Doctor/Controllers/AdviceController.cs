@@ -14,22 +14,22 @@ namespace Doctor.Controllers
     [Route("api/doctor/{id}/advice")]
     public class AdviceController : ControllerBase
     {
-        private readonly IDoctorRepository _doctorRepo;
+        private readonly IAdviceRepository _adviceRepo;
         private readonly IMapper _mapper;
 
-        public AdviceController(IDoctorRepository doctorRepository, IMapper mapper)
+        public AdviceController(IAdviceRepository adviceRepository, IMapper mapper)
         {
-            _doctorRepo = doctorRepository ?? throw new ArgumentNullException(nameof(doctorRepository));
+            _adviceRepo = adviceRepository ?? throw new ArgumentNullException(nameof(adviceRepository));
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
         [HttpGet("{idGet}")]
-        public IActionResult GetAdvice(int doctorId)
+        public IActionResult GetAdvice(int id)
         {
-            if (!_doctorRepo.DoctorExists(doctorId))
+            if (!_adviceRepo.AdviceExists(id))
             {
                 return NotFound();
             }
-            var advice = _doctorRepo.GetGeneralAdvicesForDoctor(doctorId);
+            var advice = _adviceRepo.GetGeneralAdvicesForDoctor(id);
             //var advicesForDoctor = new List<GeneralAdviceDto>();
             //foreach (var adv in advice)
             //{
@@ -69,13 +69,13 @@ namespace Doctor.Controllers
             {
                 return BadRequest();
             }
-            if (!_doctorRepo.DoctorExists(doctorId))
+            if (!_adviceRepo.AdviceExists(doctorId))
             {
                 return NotFound();
             }
             var AdviceResult = _mapper.Map<Entities.GeneralAdvice>(adviceForCreation);
-            _doctorRepo.AddAdviceForDoctor(doctorId, AdviceResult);
-            _doctorRepo.Savechnge();
+            _adviceRepo.AddAdviceForDoctor(doctorId, AdviceResult);
+            _adviceRepo.Savechnge();
             var createAdvice = _mapper.Map<Models.GeneralAdviceDto>(AdviceResult);
             return CreatedAtRoute(
                 "CreateAdvice",
@@ -106,11 +106,11 @@ namespace Doctor.Controllers
         [HttpPatch("{idUpdate}")]
         public IActionResult PartialUpdate(int doctorId, int id, [FromBody] JsonPatchDocument<AdviceForUpdate> jsonPatch)
         {
-            if (!_doctorRepo.DoctorExists(doctorId))
+            if (!_adviceRepo.AdviceExists(doctorId))
             {
                 return NotFound();
             }
-            var advicefordoctor = _doctorRepo.GetGeneralAdviceForDoctor(doctorId, id);
+            var advicefordoctor = _adviceRepo.GetGeneralAdviceForDoctor(doctorId, id);
             if (advicefordoctor == null)
             {
                 return NotFound();
@@ -126,24 +126,24 @@ namespace Doctor.Controllers
                 return BadRequest(ModelState);
             }
             _mapper.Map(partialAdvice, advicefordoctor);
-            _doctorRepo.UpdateAdvice(doctorId, advicefordoctor);
-            _doctorRepo.Savechnge();
+            _adviceRepo.UpdateAdvice(doctorId, advicefordoctor);
+            _adviceRepo.Savechnge();
             return NoContent();
         }
         [HttpDelete("{idDelete}")]
         public IActionResult DeleteAdvice(int doctorId, int id)
         {
-            if (!_doctorRepo.DoctorExists(doctorId))
+            if (!_adviceRepo.AdviceExists(doctorId))
             {
                 return NotFound();
             }
-            var AdviceEntity = _doctorRepo.GetGeneralAdviceForDoctor(doctorId, id);
+            var AdviceEntity = _adviceRepo.GetGeneralAdviceForDoctor(doctorId, id);
             if (AdviceEntity == null)
             {
                 return NotFound();
             }
-            _doctorRepo.DeleteAdvice(AdviceEntity);
-            _doctorRepo.Savechnge();
+            _adviceRepo.DeleteAdvice(AdviceEntity);
+            _adviceRepo.Savechnge();
             return NoContent();
         }
     }

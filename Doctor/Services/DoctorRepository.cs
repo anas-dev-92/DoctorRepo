@@ -16,40 +16,16 @@ namespace Doctor.Services
         }
         public IEnumerable<Doctors> GetDoctors()
         {
-            return _doctorDbContext.Doctors.OrderBy(d => d.Name).ToList();
+            return _doctorDbContext.Doctores.OrderBy(d => d.Name).ToList();
         }
 
         public Doctors GetDoctors(int doctorId)
         {
-            return _doctorDbContext.Doctors.Where(d => d.DoctorId == doctorId).FirstOrDefault();
-        }
-
-        public GeneralAdvice GetGeneralAdviceForDoctor(int doctorId, int generalAdviceId)
-        {
-            return _doctorDbContext.GeneralAdvices.Where(g => g.DoctorId == doctorId && g.AdviceId == generalAdviceId).FirstOrDefault();
-        }
-
-        public IEnumerable<GeneralAdvice> GetGeneralAdvicesForDoctor(int doctorId)
-        {
-            return _doctorDbContext.GeneralAdvices.Where(g => g.DoctorId == doctorId).ToList();
+            return _doctorDbContext.Doctores.Where(d => d.DoctorId == doctorId).FirstOrDefault();
         }
         public bool DoctorExists(int doctorId)
         {
-            return _doctorDbContext.Doctors.Any(d => d.DoctorId == doctorId);
-        }
-
-        public void AddAdviceForDoctor(int doctorId, GeneralAdvice generalAdvice)
-        {
-            var doctor = GetDoctors(doctorId);
-            doctor.generalAdvices.Add(generalAdvice);
-        }
-        public void UpdateAdvice(int doctor, GeneralAdvice generalAdvice)
-        {
-
-        }
-        public void DeleteAdvice(GeneralAdvice generalAdvice)
-        {
-            _doctorDbContext.Remove(generalAdvice);
+            return _doctorDbContext.Doctores.Any(d => d.DoctorId == doctorId);
         }
         public void Savechnge()
         {
@@ -60,7 +36,7 @@ namespace Doctor.Services
         {
             try
             {
-                _doctorDbContext.Doctors.Add(doctors);
+                _doctorDbContext.Doctores.Add(doctors);
             }
             catch (Exception ex)
             {

@@ -9,7 +9,7 @@ namespace Doctor
 {
     public class DoctorsDbContext:DbContext
     {
-        public DbSet<Doctors> Doctors { get; set; }
+        public DbSet<Doctors> Doctores { get; set; }
         public DbSet<GeneralAdvice> GeneralAdvices { get; set; }
         public DbSet<Admins> Admins { get; set; }
         public DbSet<FAQs> fAQss { get; set; }
@@ -18,10 +18,10 @@ namespace Doctor
         {
             
         }
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseMySQL("server=localhost;database=Doctor;user=Anas;password=bakribakri9292");
-        }
+        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        //{
+        //    optionsBuilder.UseMySQL("server=localhost;database=Doctor;user=Anas;password=bakribakri9292");
+        //}
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

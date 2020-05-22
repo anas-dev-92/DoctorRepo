@@ -68,7 +68,7 @@ namespace Doctor.Controllers
 
         private Doctors GetUser(string email, string password)
         {
-            return dbContext.Doctors.FirstOrDefault(u => u.Email == email && u.Password == password);
+            return dbContext.Doctores.FirstOrDefault(u => u.Email == email && u.Password == password);
         }
         //[HttpPost(Name ="Admin")]
         //public IActionResult GetAdmins(Admin admin)

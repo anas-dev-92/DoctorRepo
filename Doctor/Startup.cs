@@ -55,8 +55,8 @@ namespace Doctor
             //{
             //    o.UseSqlServer(connectionString);
             //});
-            services.AddDbContext<DoctorsDbContext>();
-            //services.AddTransient<MySqlConnection>(_ => new MySqlConnection(_configuration["ConnectionStrings:DefaultConnection"]));
+            services.AddDbContext<DoctorsDbContext>(options =>
+        options.UseMySql(_configuration.GetConnectionString("DefaultConnection")));
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(option =>
             {
                 option.RequireHttpsMetadata = false;
@@ -71,6 +71,7 @@ namespace Doctor
                 };
             });
             services.AddScoped<IDoctorRepository, DoctorRepository>();
+            services.AddScoped<IAdviceRepository, AdviceRepository>();
             services.AddScoped<IAdminRepository, AdminRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IFAQRepository, FAQRepository>();
