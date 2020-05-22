@@ -103,7 +103,7 @@ namespace Doctor.Controllers
         //    _doctorRepo.Savechnge();
         //    return NoContent();
         //}
-        [HttpPatch("{idAdvice}")]
+        [HttpPatch("{idUpdate}")]
         public IActionResult PartialUpdate(int doctorId, int id, [FromBody] JsonPatchDocument<AdviceForUpdate> jsonPatch)
         {
             if (!_doctorRepo.DoctorExists(doctorId))

@@ -37,7 +37,7 @@ namespace Doctor.Controllers
             _confg = confg;
             dbContext = context;
         }
-        [Authorize(Roles =Role.Admin)]
+        [Authorize]
         [HttpGet]
         public IActionResult GetDoctor()
         {
@@ -109,7 +109,7 @@ namespace Doctor.Controllers
 
         }
         [HttpPatch]
-        public IActionResult PartialUpdate(int doctorId, [FromBody] JsonPatchDocument<DoctorForUpdate> jsonPatch)
+        public IActionResult DoctorUpdate(int doctorId, [FromBody] JsonPatchDocument<DoctorForUpdate> jsonPatch)
         {
             if (!_doctorRepository.DoctorExists(doctorId))
             {
@@ -137,7 +137,7 @@ namespace Doctor.Controllers
         }
 
         [HttpDelete]
-        public IActionResult DeleteAdvice(int doctorId)
+        public IActionResult DeleteDoctor(int doctorId)
         {
             if (!_doctorRepository.DoctorExists(doctorId))
             {

@@ -7,5 +7,7 @@ namespace Doctor.Models.FAQ
 {
     public class FAQforCreate
     {
+        public string Question { get; set; }
+        public string Answer { get; set; }
     }
 }

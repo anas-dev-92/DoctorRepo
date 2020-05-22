@@ -42,7 +42,7 @@ namespace Doctor.Controllers
                     new Claim("Id", user.DoctorId.ToString()),
                     new Claim("DoctorName", user.Name),
                     new Claim("Email", user.Email),
-                    new Claim(ClaimTypes.Role, user.Role)
+                    //new Claim(ClaimTypes.Role, user.Role)
                    };
 
                     var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_confg["Jwt:Key"]));

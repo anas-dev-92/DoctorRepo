@@ -12,11 +12,15 @@ namespace Doctor
         public DbSet<Doctors> Doctors { get; set; }
         public DbSet<GeneralAdvice> GeneralAdvices { get; set; }
         public DbSet<Admins> Admins { get; set; }
-        public DbSet<FAQ> fAQs { get; set; }
+        public DbSet<FAQs> fAQss { get; set; }
         public DbSet<Users> Users { get; set; }
         public DoctorsDbContext(DbContextOptions<DoctorsDbContext> options) : base(options)
         {
             
+        }
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseMySQL("server=localhost;database=Doctor;user=Anas;password=bakribakri9292");
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

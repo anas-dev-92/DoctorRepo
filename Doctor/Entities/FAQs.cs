@@ -6,14 +6,11 @@ using System.Threading.Tasks;
 
 namespace Doctor.Entities
 {
-    public class FAQ
+    public class FAQs
     {
         [Key]
         public int FaqId { get; set; }
         public string Question { get; set; }
         public string Answer { get; set; }
-        public string CeratedAt { get; set; }
-        public string UpdateAt { get; set; }
-        public string DeletedAt { get; set; }
     }
 }

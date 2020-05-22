@@ -17,6 +17,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Doctor.Services.Admin;
 using Doctor.Services.User;
 using Swashbuckle.AspNetCore.Swagger;
+using Doctor.Services.FAQ;
 
 namespace Doctor
 {
@@ -49,11 +50,13 @@ namespace Doctor
                     }
                 });
             });
-            var connectionString = _configuration["ConnectionStrings:DefaultConnection"];
-            services.AddDbContext<DoctorsDbContext>(o =>
-            {
-                o.UseSqlServer(connectionString);
-            });
+            //var connectionString = _configuration["ConnectionStrings:DefaultConnection"];
+            //services.AddDbContext<DoctorsDbContext>(o =>
+            //{
+            //    o.UseSqlServer(connectionString);
+            //});
+            services.AddDbContext<DoctorsDbContext>();
+            //services.AddTransient<MySqlConnection>(_ => new MySqlConnection(_configuration["ConnectionStrings:DefaultConnection"]));
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(option =>
             {
                 option.RequireHttpsMetadata = false;
@@ -70,6 +73,7 @@ namespace Doctor
             services.AddScoped<IDoctorRepository, DoctorRepository>();
             services.AddScoped<IAdminRepository, AdminRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IFAQRepository, FAQRepository>();
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddRouting();
         }
