@@ -2,29 +2,26 @@
 using Doctor;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Doctor.Migrations
 {
     [DbContext(typeof(DoctorsDbContext))]
-    [Migration("20200517135854_App")]
-    partial class App
+    [Migration("20200523180032_DBcontext")]
+    partial class DBcontext
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "2.1.14-servicing-32113")
-                .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
-            modelBuilder.Entity("Doctor.Entities.Admin", b =>
+            modelBuilder.Entity("Doctor.Entities.Admins", b =>
                 {
                     b.Property<int>("AdminId")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .ValueGeneratedOnAdd();
 
                     b.Property<string>("Email");
 
@@ -42,8 +39,7 @@ namespace Doctor.Migrations
             modelBuilder.Entity("Doctor.Entities.Doctors", b =>
                 {
                     b.Property<int>("DoctorId")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .ValueGeneratedOnAdd();
 
                     b.Property<int>("Age");
 
@@ -67,35 +63,27 @@ namespace Doctor.Migrations
 
                     b.HasKey("DoctorId");
 
-                    b.ToTable("Doctors");
+                    b.ToTable("Doctores");
                 });
 
-            modelBuilder.Entity("Doctor.Entities.FAQ", b =>
+            modelBuilder.Entity("Doctor.Entities.FAQs", b =>
                 {
                     b.Property<int>("FaqId")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .ValueGeneratedOnAdd();
 
                     b.Property<string>("Answer");
 
-                    b.Property<string>("CeratedAt");
-
-                    b.Property<string>("DeletedAt");
-
                     b.Property<string>("Question");
-
-                    b.Property<string>("UpdateAt");
 
                     b.HasKey("FaqId");
 
-                    b.ToTable("fAQs");
+                    b.ToTable("fAQss");
                 });
 
             modelBuilder.Entity("Doctor.Entities.GeneralAdvice", b =>
                 {
                     b.Property<int>("AdviceId")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .ValueGeneratedOnAdd();
 
                     b.Property<string>("AdviceContent");
 
@@ -110,11 +98,10 @@ namespace Doctor.Migrations
                     b.ToTable("GeneralAdvices");
                 });
 
-            modelBuilder.Entity("Doctor.Entities.User", b =>
+            modelBuilder.Entity("Doctor.Entities.Users", b =>
                 {
                     b.Property<int>("UserId")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .ValueGeneratedOnAdd();
 
                     b.Property<string>("Address");
 

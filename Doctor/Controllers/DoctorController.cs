@@ -37,7 +37,7 @@ namespace Doctor.Controllers
             _confg = confg;
             dbContext = context;
         }
-        [Authorize]
+        
         [HttpGet]
         public IActionResult GetDoctor()
         {
