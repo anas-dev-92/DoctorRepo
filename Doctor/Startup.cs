@@ -44,8 +44,8 @@ namespace Doctor
                     TermsOfService = "None",
                     Contact = new Swashbuckle.AspNetCore.Swagger.Contact()
                     {
-                        Name = "Anas Ameen",
-                        Email = "Anas_mohammed92@outlook.com",
+                        Name = "",
+                        Email = "",
                         Url = ""
                     }
                 });
